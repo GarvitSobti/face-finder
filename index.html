@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <title>In the frame · Face Finder</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+<header><a class="brand" href="./">◉ <span>In the frame</span></a><span class="badge">YOUR PERSONAL PHOTO FINDER</span></header>
+<main>
+  <div class="intro"><p class="eyebrow">LESS SCROLLING. MORE MEMORIES.</p><h1>Find yourself<br>in the collection.</h1><p>Give us a portrait and a Google Drive folder.<br>Find your photos, then narrow it down to just you.</p></div>
+  <section class="setup" aria-label="Set up your search">
+    <div class="step"><span class="number">01</span><h2>A photo of you</h2><p>Choose a clear portrait with only your face.</p><label class="upload" for="reference"><img id="portrait" alt="Your reference portrait" hidden><span id="reference-label">＋ Choose reference photo</span><input id="reference" type="file" accept="image/jpeg,image/png,image/webp"></label></div>
+    <div class="step"><span class="number">02</span><h2>Your photo collection</h2><label for="client">Google OAuth client ID</label><input id="client" placeholder="…apps.googleusercontent.com" autocomplete="off"><div class="connect-row"><button id="connect" class="secondary">Connect Google Drive</button><span id="connection">Not connected</span></div><label for="folder">Drive folder link or ID</label><input id="folder" placeholder="https://drive.google.com/drive/folders/…"><label class="check"><input id="recursive" type="checkbox" checked> Include subfolders</label><details><summary>First-time Google setup</summary><p>Enable Drive API in Google Cloud, configure consent and your test user, then create a Web application OAuth client. Add this site's origin:</p><code id="origin"></code><p>Paste the public client ID above. No client secret is needed. See PROJECT.md for full instructions.</p></details></div>
+  </section>
+  <div class="action"><div><button id="scan">Find my photos ↗</button><button id="stop" class="secondary" hidden>Stop scan</button></div><p>Read-only Drive access · Face matching runs in your browser</p></div>
+  <section class="results" aria-label="Search results"><div class="results-heading"><div><p class="eyebrow">YOUR COLLECTION</p><h2 id="count">Ready when you are</h2></div><button id="export" class="secondary" disabled>Export matches</button></div>
+    <div class="filters"><label class="check"><input id="solo" type="checkbox"> Solo photos only</label><label for="threshold">Match similarity <output id="threshold-value">0.60</output></label><input id="threshold" type="range" min="0.30" max="0.95" step="0.01" value="0.60"></div>
+    <p class="hint">Solo means one detected face. Small or obscured faces may be missed. Similarity is a comparison score, not a probability.</p>
+    <p id="status" role="status" aria-live="polite">Add your reference portrait and connect Drive to begin.</p><progress id="progress" max="1" value="0" hidden></progress>
+    <div id="gallery" class="gallery"><div class="empty">Your matching memories will appear here.</div></div>
+    <details id="issues" hidden><summary id="issue-count">Scan issues</summary><ul id="issue-list"></ul></details>
+  </section>
+</main><footer>Made for finding your moments. Photos and face data stay in this browser tab.</footer>
+</body></html>
